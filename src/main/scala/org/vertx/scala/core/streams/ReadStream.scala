@@ -18,20 +18,35 @@ package org.vertx.scala.core.streams
 
 import org.vertx.java.core.buffer.Buffer
 import org.vertx.java.core.streams.{ReadStream => JReadStream}
-import org.vertx.java.core.Handler
+import org.vertx.scala.core.Delegator
 
 /**
  * @author swilliams
+ * @author Ranie Jade Ramiso
  * 
  */
-trait ReadStream extends ExceptionSupport {
+trait ReadStream[T <: JReadStream[T]] extends ExceptionSupport[T] { self: Delegator[T] =>
 
-  def dataHandler(handler: Buffer => Unit):ReadStream.this.type
+  import org.vertx.scala.core.FunctionConverters._
 
-  def endHandler(handler: () => Unit):ReadStream.this.type
+  def dataHandler(handler: Buffer => Unit):ReadStream.this.type = {
+    unwrap.dataHandler(handler)
+    this
+  }
 
-  def pause():ReadStream.this.type
+  def endHandler(handler: () => Unit):ReadStream.this.type = {
+    unwrap.endHandler(handler)
+    this
+  }
 
-  def resume():ReadStream.this.type
+  def pause():ReadStream.this.type = {
+    unwrap.pause
+    this
+  }
+
+  def resume():ReadStream.this.type = {
+    unwrap.resume
+    this
+  }
 
 }

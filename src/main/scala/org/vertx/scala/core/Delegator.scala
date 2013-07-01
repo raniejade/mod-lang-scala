@@ -13,25 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.vertx.scala.core.streams
-
-import org.vertx.java.core.streams.{ExceptionSupport => JExceptionSupport}
-import org.vertx.scala.core.Delegator
-import org.vertx.java.core.Handler
+package org.vertx.scala.core
 
 /**
  * @author swilliams
  * @author Ranie Jade Ramiso
- * 
  */
-trait ExceptionSupport[T <: JExceptionSupport[T]] { self: Delegator[T] =>
-
-  import org.vertx.scala.core.FunctionConverters._
-
-  def exceptionHandler(handler: Throwable => Unit):ExceptionSupport.this.type = {
-    this.unwrap.exceptionHandler(handler)
-    this
-  }
-
+abstract class Delegator[T](private val internal: T) {
+  def unwrap: T = internal
 }

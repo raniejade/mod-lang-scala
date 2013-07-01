@@ -18,20 +18,32 @@ package org.vertx.scala.core.streams
 
 import org.vertx.java.core.buffer.Buffer
 import org.vertx.java.core.streams.{WriteStream => JWriteStream}
-import org.vertx.java.core.Handler
+import org.vertx.scala.core.Delegator
 
 /**
  * @author swilliams
+ * @author Ranie Jade Ramiso
  * 
  */
-trait WriteStream extends ExceptionSupport {
+trait WriteStream[T <: JWriteStream[T]] extends ExceptionSupport[T] { self: Delegator[T] =>
 
-  def drainHandler(handler: () => Unit):WriteStream.this.type
+  import org.vertx.scala.core.FunctionConverters._
 
-  def setWriteQueueMaxSize(maxSize: Int):WriteStream.this.type
+  def drainHandler(handler: () => Unit):WriteStream.this.type = {
+    unwrap.drainHandler(handler)
+    this
+  }
 
-  def write(data: Buffer):WriteStream.this.type
+  def setWriteQueueMaxSize(maxSize: Int):WriteStream.this.type = {
+    unwrap.setWriteQueueMaxSize(maxSize)
+    this
+  }
 
-  def writeQueueFull():Boolean
+  def write(data: Buffer):WriteStream.this.type = {
+    unwrap.write(data)
+    this
+  }
+
+  def writeQueueFull():Boolean = unwrap.writeQueueFull
 
 }

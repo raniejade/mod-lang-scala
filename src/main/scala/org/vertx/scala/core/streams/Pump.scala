@@ -22,17 +22,17 @@ import org.vertx.java.core.buffer.Buffer
  *
  */
 object Pump {
-  def newPump(rs: ReadStream, ws: WriteStream) = {
+  def newPump(rs: ReadStream[Any], ws: WriteStream[Any]) = {
     new Pump(rs, ws)
   }
-  def newPump(rs: ReadStream, ws: WriteStream, writeQueueMaxSize:Int) = {
+  def newPump(rs: ReadStream[Any], ws: WriteStream[Any], writeQueueMaxSize:Int) = {
     def pump = new Pump(rs, ws)
     pump.writeQueueMaxSize = writeQueueMaxSize
     pump
   }
 }
 
-class Pump(readStream: ReadStream, writeStream: WriteStream) {
+class Pump(readStream: ReadStream[Any], writeStream: WriteStream[Any]) {
 
   private var writeQueueMaxSize:Int = Int.MaxValue
 
