@@ -23,7 +23,7 @@ import org.vertx.java.core.Handler
 /**
  * @author swilliams
  * @author Ranie Jade Ramiso
- * 
+ *
  */
 trait ExceptionSupport[T <: JExceptionSupport[T]] { self: Delegator[T] =>
 

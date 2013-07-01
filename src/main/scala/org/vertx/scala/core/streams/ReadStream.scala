@@ -23,7 +23,7 @@ import org.vertx.scala.core.Delegator
 /**
  * @author swilliams
  * @author Ranie Jade Ramiso
- * 
+ *
  */
 trait ReadStream[T <: JReadStream[T]] extends ExceptionSupport[T] { self: Delegator[T] =>
 

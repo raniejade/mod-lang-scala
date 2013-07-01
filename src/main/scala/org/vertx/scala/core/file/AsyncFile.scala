@@ -18,6 +18,7 @@ package org.vertx.scala.core.file
 import org.vertx.java.core.AsyncResult
 import org.vertx.java.core.buffer.Buffer
 import org.vertx.java.core.file.{AsyncFile => JAsyncFile}
+import org.vertx.java.core.Handler
 import org.vertx.scala.core.FunctionConverters._
 import org.vertx.scala.core.streams.{WriteStream, ReadStream}
 import org.vertx.scala.core.Delegator
@@ -31,7 +32,7 @@ object AsyncFile {
   implicit def toScala(internal:JAsyncFile) = new AsyncFile(internal)
 }
 
-class AsyncFile[JAsyncFile](internal: JAsyncFile) extends Delegator[JAsyncFile](internal) with ReadStream[JAsyncFile] with WriteStream[JAsyncFile] { self: Delegator[JAsyncFile] =>
+class AsyncFile(internal: JAsyncFile) extends Delegator[JAsyncFile](internal) with ReadStream[JAsyncFile] with WriteStream[JAsyncFile] {
 
   // error
   def close():Unit = internal.close()
